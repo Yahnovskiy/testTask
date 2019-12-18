@@ -24,5 +24,5 @@ Scenario Outline: Create post
 	Then Check if image of photo with id '<idPhoto>' isn't corrupted. 
 	Examples:
 	| idPhoto |
-	| 4     |
+	| 4       |
 	

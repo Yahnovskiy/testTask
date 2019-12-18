@@ -1,6 +1,7 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using RestSharp;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -142,7 +143,18 @@ namespace TestProject.Steps
             byte[]  actualImage = requestServices.GetImageByUrl(photolData.Data.Url);
             byte[] expectedlImage = ImageToByte(Resources.Resource.d32776);
 
-            Assert.IsTrue(expectedlImage == actualImage, $"Actual image bytes: {actualImage.Length.ToString()} is different as expected image bytes: {expectedlImage.Length.ToString()}");
+            bool status = false;
+
+            try
+            {
+                for(int i=0; i < actualImage.Count(); i++)
+                {
+                    status = actualImage[i] == expectedlImage[i];
+                }
+            }
+            catch { status = false; }
+
+            Assert.IsTrue(status, $"Actual image bytes: {actualImage.Length.ToString()} is different as expected image bytes: {expectedlImage.Length.ToString()}");
         }
 
         public static byte[] ImageToByte(Image img)
